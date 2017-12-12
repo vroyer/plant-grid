@@ -2,69 +2,37 @@
 """Plant Grid Farmware"""
 
 import os
-import sys
 import json
 import base64
 import numpy as np
 import requests
 
-farmware_name = 'plant_grid'
-
 def log(message, message_type):
     'Send a message to the log.'
-    try:
-        os.environ['FARMWARE_URL']
-    except KeyError:
-        print(message)
-    else:
-        log_message = '[plant-grid] ' + str(message)
-        headers = {
-            'Authorization': 'bearer {}'.format(os.environ['FARMWARE_TOKEN']),
-            'content-type': "application/json"}
-        payload = json.dumps(
-            {"kind": "send_message",
-             "args": {"message": log_message, "message_type": message_type}})
-        requests.post(os.environ['FARMWARE_URL'] + 'api/v1/celery_script',
-                      data=payload, headers=headers)
+    log_message = '[plant-grid] ' + str(message)
+    headers = {
+        'Authorization': 'bearer {}'.format(os.environ['FARMWARE_TOKEN']),
+        'content-type': "application/json"}
+    payload = json.dumps(
+        {"kind": "send_message",
+            "args": {"message": log_message, "message_type": message_type}})
+    requests.post(os.environ['FARMWARE_URL'] + 'api/v1/celery_script',
+                    data=payload, headers=headers)
 
 def get_env(key, type_=int):
     'Return the value of the namespaced Farmware input variable.'
     return type_(os.environ['{}_{}'.format(farmware_name, key)])
 
-# Load inputs from Farmware page widget specified in manifest file
-try:
-    x_num = get_env('y_num')
-    y_num = get_env('y_num')
-    x_step = get_env('x_step')
-    y_step = get_env('y_step')
-    x_start = get_env('x_start')
-    y_start = get_env('y_start')
-    radius = get_env('radius')
-    name = get_env('name', str)
-    slug = get_env('slug', str)
-except (KeyError, ValueError):
-    log(
-    'Please run from "Plant Grid" widget at the bottom of the Farmware page.',
-    'error')
-    sys.exit(1)
-
 class Grid():
     'Add a grid of plants to the farm designer.'
     def __init__(self):
-        try:
-            API_TOKEN = os.environ['API_TOKEN']
-        except KeyError:
-            API_TOKEN = ''
+        API_TOKEN = os.environ['API_TOKEN']
         self.headers = {'Authorization': 'Bearer {}'.format(API_TOKEN),
                         'content-type': "application/json"}
-        try:
-            encoded_payload = API_TOKEN.split('.')[1]
-            encoded_payload += '=' * (4 - len(encoded_payload) % 4)
-            json_payload = base64.b64decode(encoded_payload).decode('utf-8')
-            server = json.loads(json_payload)['iss']
-            print server
-        except:
-            server = ''
+        encoded_payload = API_TOKEN.split('.')[1]
+        encoded_payload += '=' * (4 - len(encoded_payload) % 4)
+        json_payload = base64.b64decode(encoded_payload).decode('utf-8')
+        server = json.loads(json_payload)['iss']
         self.api_url = 'http{}:{}/api/'.format(
             's' if not any([h in server for h in ['localhost', '192.168.']])
             else '', server)
@@ -96,5 +64,17 @@ class Grid():
             'success')
 
 if __name__ == '__main__':
+    farmware_name = 'plant_grid'
+    # Load inputs from Farmware page widget specified in manifest file
+    x_num = get_env('y_num')
+    y_num = get_env('y_num')
+    x_step = get_env('x_step')
+    y_step = get_env('y_step')
+    x_start = get_env('x_start')
+    y_start = get_env('y_start')
+    radius = get_env('radius')
+    name = get_env('name', str)
+    slug = get_env('slug', str)
+    
     grid = Grid()
     grid.add_plants()
