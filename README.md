@@ -4,7 +4,7 @@ Create a grid of plants in the Farm Designer.
 ## Install
 [Farmware page](https://my.farm.bot/app/farmware) install URL:
 ```
-https://raw.githubusercontent.com/FarmBot-Labs/plant-grid/master/manifest.json
+https://raw.githubusercontent.com/vroyer/plant-grid/master/manifest.json
 ```
 
 ## Use
