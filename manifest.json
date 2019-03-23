@@ -10,8 +10,8 @@
  "executable": "python",
  "args": ["plant-grid-master/plant_grid.py"],
  "config": [
-   {"name": "x_num", "label": "Number of columns", "value": 2 },
-   {"name": "y_num", "label": "Number of rows", "value": 3 },
+   {"name": "x_num", "label": "Number of columns on X", "value": 2 },
+   {"name": "y_num", "label": "Number of rows on Y", "value": 3 },
    {"name": "x_step", "label": "Column spacing", "value": 100 },
    {"name": "y_step", "label": "Row spacing", "value": 100 },
    {"name": "x_start", "label": "First column X coordinate", "value": 500 },
