@@ -66,7 +66,7 @@ class Grid():
 if __name__ == '__main__':
     farmware_name = 'plant_grid'
     # Load inputs from Farmware page widget specified in manifest file
-    x_num = get_env('y_num')
+    x_num = get_env('x_num')
     y_num = get_env('y_num')
     x_step = get_env('x_step')
     y_step = get_env('y_step')

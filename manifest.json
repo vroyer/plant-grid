@@ -1,12 +1,12 @@
 {
- "package": "Plant Grid",
+ "package": "Plant Grid2",
  "language": "python",
  "author": "Farmbot.io",
  "description": "Create a grid of plants in the Farm Designer.",
  "version": "1.0.1",
  "min_os_version_major": 6,
- "url": "https://raw.githubusercontent.com/FarmBot-Labs/plant-grid/master/manifest.json",
- "zip": "https://github.com/FarmBot-Labs/plant-grid/archive/master.zip",
+ "url": "https://raw.githubusercontent.com/vroyer/plant-grid/master/manifest.json",
+ "zip": "https://github.com/vroyer/plant-grid/archive/master.zip",
  "executable": "python",
  "args": ["plant-grid-master/plant_grid.py"],
  "config": [
